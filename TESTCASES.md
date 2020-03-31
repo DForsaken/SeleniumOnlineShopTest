@@ -2,14 +2,14 @@
 #### Preconditions
 * Generated customer with all customer data
 #### Test steps
-* Open [Home page](http://automationpractice.com/index.php)
+* Open [Home com.hellofresh.challenge.page](http://automationpractice.com/index.php)
 * Click *Sign in* button
 * Fill *Email address* to create an account
 * Click *Create an account* 
 * Fill all fields with correct data 
 * Click *Register* button
 #### Assertions
-* My account page(?controller=my-account) is opened
+* My account com.hellofresh.challenge.page(?controller=my-account) is opened
 * Proper username is shown in the header
 * Log out action is available
 
@@ -17,13 +17,13 @@
 #### Preconditions
 * Existing customer
 #### Test steps
-* Open [Home page](http://automationpractice.com/index.php)
+* Open [Home com.hellofresh.challenge.page](http://automationpractice.com/index.php)
 * Click *Sign in* button (in the header)
 * Fill *Email address* in _Already registered_ block
 * Fill *Password* in _Already registered_ block
 * Click *Sign in* 
 #### Assertions
-* My account page(?controller=my-account) is opened
+* My account com.hellofresh.challenge.page(?controller=my-account) is opened
 * Proper username is shown in the header
 * Log out action is available
 
@@ -44,6 +44,6 @@
 * Click by payment method *Pay by bank wire*
 * Click *I confirm my order*
 #### Assertions
-* Order confirmation page(?controller=order-confirmation) is opened
+* Order confirmation com.hellofresh.challenge.page(?controller=order-confirmation) is opened
 * The order is complete.
-* Current page is the last step of ordering 
+* Current com.hellofresh.challenge.page is the last step of ordering 
