@@ -1,5 +1,6 @@
 package com.hellofresh.challenge;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -28,6 +29,11 @@ public class WebTest {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 10, 50);
         driver.get("http://automationpractice.com/index.php");
+    }
+
+    @After
+    public void tearDown() {
+        driver.quit();
     }
 
     @Test
@@ -93,8 +99,7 @@ public class WebTest {
         driver.findElement(By.id("passwd")).sendKeys(existingUserPassword);
         driver.findElement(By.id("SubmitLogin")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Women"))).click();
-        driver.findElement(By.xpath("//a[@title='Faded Short Sleeve T-shirts']/ancestor::li")).click();
-        driver.findElement(By.xpath("//a[@title='Faded Short Sleeve T-shirts']/ancestor::li")).click();
+        driver.findElement(By.xpath("//a[@title='Faded Short Sleeve T-shirts']")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("Submit"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='layer_cart']//a[@class and @title='Proceed to checkout']"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@class,'cart_navigation')]/a[@title='Proceed to checkout']"))).click();
