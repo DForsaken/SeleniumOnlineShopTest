@@ -1,4 +1,6 @@
-target/
+target/*
+
+Log4j/*
 
 *.iml
 
