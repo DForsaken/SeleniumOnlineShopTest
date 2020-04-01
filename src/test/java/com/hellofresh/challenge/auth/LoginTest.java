@@ -13,7 +13,7 @@ import static org.testng.Assert.assertTrue;
 
 public class LoginTest extends BaseTest {
     protected void navigateTo() {
-        HomePage homePage = new HomePage(driver);
+        HomePage homePage = new HomePage(getDriver());
         homePage.getLoginButton().click();
     }
 
@@ -26,16 +26,16 @@ public class LoginTest extends BaseTest {
         String fullName = "Joe Black";
         String accountPath = "controller=my-account";
 
-        LogInPage logInPage = new LogInPage((driver));
+        LogInPage logInPage = new LogInPage(getDriver());
         logInPage.getEmail().sendKeys(existingUserEmail);
         logInPage.getPassword().sendKeys(existingUserPassword);
         logInPage.getLogInButton().click();
 
-        YourAccountPage accountPage = new YourAccountPage(driver);
+        YourAccountPage accountPage = new YourAccountPage(getDriver());
         assertThat(accountPage.getTitle().getText(), equalTo("MY ACCOUNT"));
         assertThat(accountPage.getAccountOwner().getText(), equalTo(fullName));
         assertThat(accountPage.getAccountInfo().getText(), containsString("Welcome to your account."));
         assertTrue(accountPage.getLogoutButton().isDisplayed());
-        assertThat(driver.getCurrentUrl(), containsString(accountPath));
+        assertThat(getDriver().getCurrentUrl(), containsString(accountPath));
     }
 }

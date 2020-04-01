@@ -4,6 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class NewAccountPage extends BasePage {
     @FindBy(id = "id_gender2")
     private WebElement gender;
@@ -61,6 +64,11 @@ public class NewAccountPage extends BasePage {
 
     public NewAccountPage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    protected List<WebElement> getElementsToLoad() {
+        return Arrays.asList(gender, firstName);
     }
 
     public WebElement getGender() {

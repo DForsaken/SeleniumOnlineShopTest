@@ -4,6 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class CheckoutShippingPage extends BasePage {
     @FindBy(id = "uniform-cgv")
     private WebElement termsOfServiceRadioButton;
@@ -13,6 +16,11 @@ public class CheckoutShippingPage extends BasePage {
 
     public CheckoutShippingPage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    protected List<WebElement> getElementsToLoad() {
+        return Arrays.asList(termsOfServiceRadioButton, continueButton);
     }
 
     public WebElement getTermsOfServiceRadioButton() {

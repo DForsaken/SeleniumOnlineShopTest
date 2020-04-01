@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 
 import java.util.Date;
 
+import static com.hellofresh.challenge.page.BasePage.waitForLoadedPage;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
@@ -17,7 +18,7 @@ import static org.testng.Assert.assertTrue;
 
 public class SignUpTest extends BaseTest {
     protected void navigateTo() {
-        HomePage homePage = new HomePage(driver);
+        HomePage homePage = new HomePage(getDriver());
         homePage.getLoginButton().click();
     }
 
@@ -32,17 +33,11 @@ public class SignUpTest extends BaseTest {
         String password = "Qwerty";
         String accountPath = "controller=my-account";
 
-        LogInPage logInPage = new LogInPage((driver));
+        LogInPage logInPage = new LogInPage(getDriver());
         logInPage.getNewEmail().sendKeys(email);
         logInPage.getCreateAccountButton().click();
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        NewAccountPage newAccountPage = new NewAccountPage(driver);
+        NewAccountPage newAccountPage = waitForLoadedPage(new NewAccountPage(getDriver()));
         newAccountPage.getGender().click();
         newAccountPage.getFirstName().sendKeys(name);
         newAccountPage.getLastName().sendKeys(surname);
@@ -70,11 +65,11 @@ public class SignUpTest extends BaseTest {
         newAccountPage.getAlias().sendKeys("hf");
         newAccountPage.getSubmitButton().click();
 
-        YourAccountPage accountPage = new YourAccountPage(driver);
+        YourAccountPage accountPage = new YourAccountPage(getDriver());
         assertThat(accountPage.getTitle().getText(), equalTo("MY ACCOUNT"));
         assertThat(accountPage.getAccountOwner().getText(), equalTo(name + " " + surname));
         assertThat(accountPage.getAccountInfo().getText(), containsString("Welcome to your account."));
         assertTrue(accountPage.getLogoutButton().isDisplayed());
-        assertThat(driver.getCurrentUrl(), containsString(accountPath));
+        assertThat(getDriver().getCurrentUrl(), containsString(accountPath));
     }
 }

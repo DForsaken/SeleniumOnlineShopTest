@@ -1,18 +1,10 @@
 package com.hellofresh.challenge.checkout;
 
 import com.hellofresh.challenge.BaseTest;
-import com.hellofresh.challenge.page.CategoryPage;
-import com.hellofresh.challenge.page.CheckoutAddressPage;
-import com.hellofresh.challenge.page.CheckoutShippingPage;
-import com.hellofresh.challenge.page.CheckoutPayment;
-import com.hellofresh.challenge.page.HomePage;
-import com.hellofresh.challenge.page.LogInPage;
-import com.hellofresh.challenge.page.OrderConfirmationPage;
-import com.hellofresh.challenge.page.OrderPage;
-import com.hellofresh.challenge.page.ProductDetailsPage;
-import com.hellofresh.challenge.page.ShoppingCarProductsPage;
+import com.hellofresh.challenge.page.*;
 import org.testng.annotations.Test;
 
+import static com.hellofresh.challenge.page.BasePage.waitForLoadedPage;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
@@ -20,13 +12,13 @@ import static org.testng.Assert.assertTrue;
 
 public class CheckoutTest extends BaseTest {
     protected void navigateTo() {
-        HomePage homePage = new HomePage(driver);
+        HomePage homePage = new HomePage(getDriver());
         homePage.getLoginButton().click();
 
         String existingUserEmail = "hf_challenge_123456@hf123456.com";
         String existingUserPassword = "12345678";
 
-        LogInPage logInPage = new LogInPage((driver));
+        LogInPage logInPage = new LogInPage(getDriver());
         logInPage.getEmail().sendKeys(existingUserEmail);
         logInPage.getPassword().sendKeys(existingUserPassword);
         logInPage.getLogInButton().click();
@@ -38,41 +30,35 @@ public class CheckoutTest extends BaseTest {
     public void testCheckout() {
         navigateTo();
 
-        CategoryPage categoryPage = new CategoryPage(driver);
+        CategoryPage categoryPage = new CategoryPage(getDriver());
         categoryPage.getFadShortSleeveTSTitle().click();
 
-        ProductDetailsPage productDetailsPage = new ProductDetailsPage(driver);
+        ProductDetailsPage productDetailsPage = new ProductDetailsPage(getDriver());
         productDetailsPage.getAddToCarButton().click();
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        ShoppingCarProductsPage shoppingCarProductsPage = new ShoppingCarProductsPage(driver);
+        ShoppingCarProductsPage shoppingCarProductsPage = waitForLoadedPage(new ShoppingCarProductsPage(getDriver()));
         shoppingCarProductsPage.getCheckoutButton().click();
 
-        OrderPage orderPage = new OrderPage(driver);
+        OrderPage orderPage = new OrderPage(getDriver());
         orderPage.getCheckoutButton().click();
 
-        CheckoutAddressPage checkoutAddressPage = new CheckoutAddressPage(driver);
+        CheckoutAddressPage checkoutAddressPage = new CheckoutAddressPage(getDriver());
         checkoutAddressPage.getContinueButton().click();
 
-        CheckoutShippingPage checkoutShippingPage = new CheckoutShippingPage(driver);
+        CheckoutShippingPage checkoutShippingPage = new CheckoutShippingPage(getDriver());
         checkoutShippingPage.getTermsOfServiceRadioButton().click();
         checkoutShippingPage.getContinueButton().click();
 
-        CheckoutPayment checkoutPayment = new CheckoutPayment(driver);
+        CheckoutPayment checkoutPayment = new CheckoutPayment(getDriver());
         checkoutPayment.getBankwireMethodButton().click();
         checkoutPayment.getConfirmationButton().click();
 
-        OrderConfirmationPage orderConfirmationPage = new OrderConfirmationPage(driver);
+        OrderConfirmationPage orderConfirmationPage = new OrderConfirmationPage(getDriver());
 
         assertThat(orderConfirmationPage.getTitle().getText(), equalTo("ORDER CONFIRMATION"));
         assertTrue(orderConfirmationPage.getShippingStepTitle().isDisplayed());
         assertTrue(orderConfirmationPage.getPaymentStepTitle().isDisplayed());
         assertThat(orderConfirmationPage.getOrderSubtitle().getText(), containsString("Your order on My Store is complete."));
-        assertThat(driver.getCurrentUrl(), containsString("controller=order-confirmation"));
+        assertThat(getDriver().getCurrentUrl(), containsString("controller=order-confirmation"));
     }
 }

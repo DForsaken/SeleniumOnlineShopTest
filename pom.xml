@@ -75,9 +75,7 @@
           </argLine>
           <properties>
             <property>
-              <!--
-              Other default reporters are not required for us since Allure is used
-              -->
+              <!-- Other default reporters are not required for us since Allure is used -->
               <name>usedefaultlisteners</name>
               <value>false</value>
             </property>
