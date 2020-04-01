@@ -1,6 +1,7 @@
 package com.hellofresh.challenge.auth;
 
 import com.hellofresh.challenge.BaseTest;
+import com.hellofresh.challenge.data.User;
 import com.hellofresh.challenge.page.YourAccountPage;
 import com.hellofresh.challenge.page.HomePage;
 import com.hellofresh.challenge.page.LogInPage;
@@ -21,20 +22,20 @@ public class LoginTest extends BaseTest {
     public void testLogin() {
         navigateTo();
 
-        String existingUserEmail = "hf_challenge_123456@hf123456.com";
-        String existingUserPassword = "12345678";
-        String fullName = "Joe Black";
         String accountPath = "controller=my-account";
+        String title = "MY ACCOUNT";
+        String accountInfo = "Welcome to your account.";
+
+        User user = new User();
 
         LogInPage logInPage = new LogInPage(getDriver());
-        logInPage.getEmail().sendKeys(existingUserEmail);
-        logInPage.getPassword().sendKeys(existingUserPassword);
-        logInPage.getLogInButton().click();
+        logInPage.doLogin(user);
 
         YourAccountPage accountPage = new YourAccountPage(getDriver());
-        assertThat(accountPage.getTitle().getText(), equalTo("MY ACCOUNT"));
-        assertThat(accountPage.getAccountOwner().getText(), equalTo(fullName));
-        assertThat(accountPage.getAccountInfo().getText(), containsString("Welcome to your account."));
+
+        assertThat(accountPage.getTitle().getText(), equalTo(title));
+        assertThat(accountPage.getAccountOwner().getText(), equalTo(user.getFullName()));
+        assertThat(accountPage.getAccountInfo().getText(), containsString(accountInfo));
         assertTrue(accountPage.getLogoutButton().isDisplayed());
         assertThat(getDriver().getCurrentUrl(), containsString(accountPath));
     }

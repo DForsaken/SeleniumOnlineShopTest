@@ -1,5 +1,6 @@
 package com.hellofresh.challenge.page;
 
+import com.hellofresh.challenge.data.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -42,5 +43,13 @@ public class LogInPage extends BasePage {
 
     public WebElement getCreateAccountButton() {
         return createAccountButton;
+    }
+
+    /****** Filling page helper methods *****/
+
+    public void doLogin(User user) {
+        email.sendKeys(user.getEmail());
+        password.sendKeys(user.getPassword());
+        logInButton.click();
     }
 }

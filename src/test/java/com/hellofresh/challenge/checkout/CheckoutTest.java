@@ -1,6 +1,7 @@
 package com.hellofresh.challenge.checkout;
 
 import com.hellofresh.challenge.BaseTest;
+import com.hellofresh.challenge.data.User;
 import com.hellofresh.challenge.page.*;
 import org.testng.annotations.Test;
 
@@ -15,13 +16,10 @@ public class CheckoutTest extends BaseTest {
         HomePage homePage = new HomePage(getDriver());
         homePage.getLoginButton().click();
 
-        String existingUserEmail = "hf_challenge_123456@hf123456.com";
-        String existingUserPassword = "12345678";
+        User user = new User();
 
         LogInPage logInPage = new LogInPage(getDriver());
-        logInPage.getEmail().sendKeys(existingUserEmail);
-        logInPage.getPassword().sendKeys(existingUserPassword);
-        logInPage.getLogInButton().click();
+        logInPage.doLogin(user);
 
         homePage.getWomenCategoryButton().click();
     }
@@ -30,7 +28,7 @@ public class CheckoutTest extends BaseTest {
     public void testCheckout() {
         navigateTo();
 
-        CategoryPage categoryPage = new CategoryPage(getDriver());
+        CategoryPage categoryPage = waitForLoadedPage(new CategoryPage(getDriver()));
         categoryPage.getFadShortSleeveTSTitle().click();
 
         ProductDetailsPage productDetailsPage = new ProductDetailsPage(getDriver());

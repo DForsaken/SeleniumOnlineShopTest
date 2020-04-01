@@ -1,6 +1,7 @@
 package com.hellofresh.challenge.auth;
 
 import com.hellofresh.challenge.BaseTest;
+import com.hellofresh.challenge.data.User;
 import com.hellofresh.challenge.page.HomePage;
 import com.hellofresh.challenge.page.LogInPage;
 import com.hellofresh.challenge.page.NewAccountPage;
@@ -28,20 +29,18 @@ public class SignUpTest extends BaseTest {
 
         String timestamp = String.valueOf(new Date().getTime());
         String email = "hf_challenge_" + timestamp + "@hf" + timestamp.substring(7) + ".com";
-        String name = "Firstname";
-        String surname = "Lastname";
-        String password = "Qwerty";
         String accountPath = "controller=my-account";
+        User user = new User(email);
 
         LogInPage logInPage = new LogInPage(getDriver());
-        logInPage.getNewEmail().sendKeys(email);
+        logInPage.getNewEmail().sendKeys(user.getEmail());
         logInPage.getCreateAccountButton().click();
 
         NewAccountPage newAccountPage = waitForLoadedPage(new NewAccountPage(getDriver()));
         newAccountPage.getGender().click();
-        newAccountPage.getFirstName().sendKeys(name);
-        newAccountPage.getLastName().sendKeys(surname);
-        newAccountPage.getPassword().sendKeys(password);
+        newAccountPage.getFirstName().sendKeys(user.getName());
+        newAccountPage.getLastName().sendKeys(user.getSurname());
+        newAccountPage.getPassword().sendKeys(user.getPassword());
 
         Select select = new Select(newAccountPage.getDay());
         select.selectByValue("1");
@@ -66,8 +65,9 @@ public class SignUpTest extends BaseTest {
         newAccountPage.getSubmitButton().click();
 
         YourAccountPage accountPage = new YourAccountPage(getDriver());
+
         assertThat(accountPage.getTitle().getText(), equalTo("MY ACCOUNT"));
-        assertThat(accountPage.getAccountOwner().getText(), equalTo(name + " " + surname));
+        assertThat(accountPage.getAccountOwner().getText(), equalTo(user.getName() + " " + user.getSurname()));
         assertThat(accountPage.getAccountInfo().getText(), containsString("Welcome to your account."));
         assertTrue(accountPage.getLogoutButton().isDisplayed());
         assertThat(getDriver().getCurrentUrl(), containsString(accountPath));

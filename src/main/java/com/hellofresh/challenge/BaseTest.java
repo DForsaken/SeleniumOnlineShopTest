@@ -13,15 +13,14 @@ import org.testng.annotations.BeforeMethod;
 
 public abstract class BaseTest {
     protected static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
-    //    protected WebDriver driver;
     protected WebDriverWait wait;
 
     @BeforeMethod
     public void setUp() {
         DriverFactory driverFactory = new DriverFactory();
         Log.step(Level.DEBUG, "Starting driver");
-        //driver = driverFactory.create(DriverType.CHROME, "http://automationpractice.com/index.php");
         driver.set(driverFactory.create(DriverType.CHROME, "http://automationpractice.com/index.php"));
+        //driver.set(driverFactory.create(DriverType.FIREFOX, "http://automationpractice.com/index.php"));
         wait = new WebDriverWait(driver.get(), 10, 50);
         Log.step(Level.DEBUG, "Opening browser in webpage");
         driver.get().get("http://automationpractice.com/index.php");
@@ -35,7 +34,6 @@ public abstract class BaseTest {
 
     @AfterClass
     public void terminate () {
-        //Remove the ThreadLocalMap element
         driver.remove();
     }
 
