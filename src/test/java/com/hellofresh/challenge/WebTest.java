@@ -1,8 +1,5 @@
 package com.hellofresh.challenge;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,10 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Date;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-
 public class WebTest {
+    /*
     WebDriver driver;
     WebDriverWait wait;
 
@@ -115,5 +110,5 @@ public class WebTest {
         assertTrue(driver.findElement(By.xpath("//li[@id='step_end' and @class='step_current last']")).isDisplayed());
         assertTrue(driver.findElement(By.xpath("//*[@class='cheque-indent']/strong")).getText().contains("Your order on My Store is complete."));
         assertTrue(driver.getCurrentUrl().contains("controller=order-confirmation"));
-    }
+    }*/
 }

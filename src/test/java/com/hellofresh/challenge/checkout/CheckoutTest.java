@@ -1,24 +1,30 @@
 package com.hellofresh.challenge.checkout;
 
 import com.hellofresh.challenge.BaseTest;
-import com.hellofresh.challenge.page.*;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import com.hellofresh.challenge.page.CategoryPage;
+import com.hellofresh.challenge.page.CheckoutAddressPage;
+import com.hellofresh.challenge.page.CheckoutShippingPage;
+import com.hellofresh.challenge.page.CheckoutPayment;
+import com.hellofresh.challenge.page.HomePage;
+import com.hellofresh.challenge.page.LogInPage;
+import com.hellofresh.challenge.page.OrderConfirmationPage;
+import com.hellofresh.challenge.page.OrderPage;
+import com.hellofresh.challenge.page.ProductDetailsPage;
+import com.hellofresh.challenge.page.ShoppingCarProductsPage;
+import org.testng.annotations.Test;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.testng.Assert.assertTrue;
 
 public class CheckoutTest extends BaseTest {
-    @Test
-    public void testCheckout() {
-        String existingUserEmail = "hf_challenge_123456@hf123456.com";
-        String existingUserPassword = "12345678";
-        String fullName = "Joe Black";
-        String accountPath = "controller=my-account";
-
+    protected void navigateTo() {
         HomePage homePage = new HomePage(driver);
         homePage.getLoginButton().click();
+
+        String existingUserEmail = "hf_challenge_123456@hf123456.com";
+        String existingUserPassword = "12345678";
 
         LogInPage logInPage = new LogInPage((driver));
         logInPage.getEmail().sendKeys(existingUserEmail);
@@ -26,6 +32,11 @@ public class CheckoutTest extends BaseTest {
         logInPage.getLogInButton().click();
 
         homePage.getWomenCategoryButton().click();
+    }
+
+    @Test
+    public void testCheckout() {
+        navigateTo();
 
         CategoryPage categoryPage = new CategoryPage(driver);
         categoryPage.getFadShortSleeveTSTitle().click();
@@ -58,10 +69,10 @@ public class CheckoutTest extends BaseTest {
 
         OrderConfirmationPage orderConfirmationPage = new OrderConfirmationPage(driver);
 
-        assertEquals("ORDER CONFIRMATION", orderConfirmationPage.getTitle().getText());
+        assertThat(orderConfirmationPage.getTitle().getText(), equalTo("ORDER CONFIRMATION"));
         assertTrue(orderConfirmationPage.getShippingStepTitle().isDisplayed());
         assertTrue(orderConfirmationPage.getPaymentStepTitle().isDisplayed());
-        assertTrue(orderConfirmationPage.getOrderSubtitle().getText().contains("Your order on My Store is complete."));
-        assertTrue(driver.getCurrentUrl().contains("controller=order-confirmation"));
+        assertThat(orderConfirmationPage.getOrderSubtitle().getText(), containsString("Your order on My Store is complete."));
+        assertThat(driver.getCurrentUrl(), containsString("controller=order-confirmation"));
     }
 }

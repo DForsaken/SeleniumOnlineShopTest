@@ -5,20 +5,26 @@ import com.hellofresh.challenge.page.HomePage;
 import com.hellofresh.challenge.page.LogInPage;
 import com.hellofresh.challenge.page.NewAccountPage;
 import com.hellofresh.challenge.page.YourAccountPage;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.Test;
 
 import java.util.Date;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.testng.Assert.assertTrue;
 
 public class SignUpTest extends BaseTest {
+    protected void navigateTo() {
+        HomePage homePage = new HomePage(driver);
+        homePage.getLoginButton().click();
+    }
+
     @Test
     public void testSingUp() {
+        navigateTo();
+
         String timestamp = String.valueOf(new Date().getTime());
         String email = "hf_challenge_" + timestamp + "@hf" + timestamp.substring(7) + ".com";
         String name = "Firstname";
@@ -26,12 +32,15 @@ public class SignUpTest extends BaseTest {
         String password = "Qwerty";
         String accountPath = "controller=my-account";
 
-        HomePage homePage = new HomePage(driver);
-        homePage.getLoginButton().click();
-
         LogInPage logInPage = new LogInPage((driver));
         logInPage.getNewEmail().sendKeys(email);
         logInPage.getCreateAccountButton().click();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         NewAccountPage newAccountPage = new NewAccountPage(driver);
         newAccountPage.getGender().click();
@@ -62,10 +71,10 @@ public class SignUpTest extends BaseTest {
         newAccountPage.getSubmitButton().click();
 
         YourAccountPage accountPage = new YourAccountPage(driver);
-        assertEquals("MY ACCOUNT", accountPage.getTitle().getText());
-        assertEquals(name + " " + surname, accountPage.getAccountOwner().getText());
-        assertTrue(accountPage.getAccountInfo().getText().contains("Welcome to your account."));
+        assertThat(accountPage.getTitle().getText(), equalTo("MY ACCOUNT"));
+        assertThat(accountPage.getAccountOwner().getText(), equalTo(name + " " + surname));
+        assertThat(accountPage.getAccountInfo().getText(), containsString("Welcome to your account."));
         assertTrue(accountPage.getLogoutButton().isDisplayed());
-        assertTrue(driver.getCurrentUrl().contains(accountPath));
+        assertThat(driver.getCurrentUrl(), containsString(accountPath));
     }
 }

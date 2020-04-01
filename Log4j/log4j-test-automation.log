@@ -1,0 +1,18 @@
+2020-04-01 03:01:58 DEBUG Log:41 - TEST TO RUN: testLogin
+2020-04-01 03:02:18 DEBUG Log:41 - TEST TO RUN: testSingUp
+2020-04-01 03:02:31 DEBUG Log:41 - TEST TO RUN: testCheckout
+2020-04-01 03:56:01 DEBUG Log:37 - Starting driver
+2020-04-01 03:56:02 DEBUG Log:37 - Opening browser in webpage
+2020-04-01 03:56:07 DEBUG Log:28 - TEST TO RUN: testLogin
+2020-04-01 03:56:10 DEBUG Log:28 - TEST SUCCEEDED: testLogin
+2020-04-01 03:56:10 DEBUG Log:37 - Quit driver
+2020-04-01 03:56:10 DEBUG Log:37 - Starting driver
+2020-04-01 03:56:11 DEBUG Log:37 - Opening browser in webpage
+2020-04-01 03:56:15 DEBUG Log:28 - TEST TO RUN: testSingUp
+2020-04-01 03:56:23 DEBUG Log:28 - TEST SUCCEEDED: testSingUp
+2020-04-01 03:56:23 DEBUG Log:37 - Quit driver
+2020-04-01 03:56:23 DEBUG Log:37 - Starting driver
+2020-04-01 03:56:24 DEBUG Log:37 - Opening browser in webpage
+2020-04-01 03:56:30 DEBUG Log:28 - TEST TO RUN: testCheckout
+2020-04-01 03:56:51 DEBUG Log:28 - TEST SUCCEEDED: testCheckout
+2020-04-01 03:56:51 DEBUG Log:37 - Quit driver

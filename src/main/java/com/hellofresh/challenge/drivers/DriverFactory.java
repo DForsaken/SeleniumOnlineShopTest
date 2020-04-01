@@ -4,17 +4,11 @@ import com.hellofresh.challenge.enums.DriverType;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import static com.hellofresh.challenge.enums.DriverType.CHROME;
-import static com.hellofresh.challenge.enums.DriverType.FIREFOX;
 
 public class DriverFactory {
     private WebDriver driver;
