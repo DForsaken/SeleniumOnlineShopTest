@@ -1,8 +1,10 @@
 package com.hellofresh.challenge.page;
 
+import com.hellofresh.challenge.data.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.Arrays;
 import java.util.List;
@@ -141,5 +143,37 @@ public class NewAccountPage extends BasePage {
 
     public WebElement getSubmitButton() {
         return submitButton;
+    }
+
+    /****** Filling page helper methods *****/
+
+    public void doSingUp(User user) {
+        gender.click();
+        firstName.sendKeys(user.getName());
+        lastName.sendKeys(user.getSurname());
+        password.sendKeys(user.getPassword());
+
+        Select select = new Select(day);
+        select.selectByValue(user.getDay());
+        select = new Select(month);
+        select.selectByValue(user.getMonth());
+        select = new Select(year);
+        select.selectByValue(user.getYear());
+
+        company.sendKeys(user.getCompany());
+        address1.sendKeys(user.getAddress1());
+        address2.sendKeys(user.getAddress2());
+        city.sendKeys(user.getCity());
+
+        select = new Select(state);
+        select.selectByVisibleText(user.getState());
+
+        postcode.sendKeys(user.getPostcode());
+        other.sendKeys(user.getOther());
+        phone.sendKeys(user.getPhone());
+        mobile.sendKeys(user.getMobile());
+        alias.sendKeys(user.getAlias());
+
+        submitButton.click();
     }
 }

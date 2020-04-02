@@ -74,11 +74,6 @@ public class TestListener extends BaseTest implements ITestListener {
             saveScreenshotPNG(driver);
         }
 
-        //Save a log on allure.
-        //saveTextLog(getTestMethodName(iTestResult) + " failed and screenshot taken!");
-
-        //Take base64Screenshot screenshot for extent reports
-        String base64Screenshot = "data:image/png;base64,"+((TakesScreenshot)driver).getScreenshotAs(OutputType.BASE64);
         Log.debug("TEST FAILED: " +  getTestMethodName(iTestResult));
     }
 

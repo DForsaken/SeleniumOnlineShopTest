@@ -12,6 +12,8 @@
     <testng.version>6.14.3</testng.version>
     <selenium.version>3.11.0</selenium.version>
     <aspectj.version>1.8.10</aspectj.version>
+    <browser/><!-- Provided manually (mandatory) -->
+    <hubUrl/><!-- Provided manually (mandatory) -->
 
     <!-- Paths -->
     <allureResultsPath>${project.build.directory}/allure-results</allureResultsPath>
@@ -103,6 +105,22 @@
         <groupId>io.qameta.allure</groupId>
         <artifactId>allure-maven</artifactId>
         <version>2.9</version>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>write-project-properties</goal>
+            </goals>
+            <configuration>
+              <outputFile>${project.build.testOutputDirectory}/tests.properties</outputFile>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

@@ -28,6 +28,10 @@ public class CheckoutTest extends BaseTest {
     public void testCheckout() {
         navigateTo();
 
+        String orderConfirmationTitle = "ORDER CONFIRMATION";
+        String orderConfirmationSubtitle = "Your order on My Store is complete.";
+        String relativePath = "controller=order-confirmation";
+
         CategoryPage categoryPage = waitForLoadedPage(new CategoryPage(getDriver()));
         categoryPage.getFadShortSleeveTSTitle().click();
 
@@ -53,10 +57,10 @@ public class CheckoutTest extends BaseTest {
 
         OrderConfirmationPage orderConfirmationPage = new OrderConfirmationPage(getDriver());
 
-        assertThat(orderConfirmationPage.getTitle().getText(), equalTo("ORDER CONFIRMATION"));
+        assertThat(orderConfirmationPage.getTitle().getText(), equalTo(orderConfirmationTitle));
         assertTrue(orderConfirmationPage.getShippingStepTitle().isDisplayed());
         assertTrue(orderConfirmationPage.getPaymentStepTitle().isDisplayed());
-        assertThat(orderConfirmationPage.getOrderSubtitle().getText(), containsString("Your order on My Store is complete."));
-        assertThat(getDriver().getCurrentUrl(), containsString("controller=order-confirmation"));
+        assertThat(orderConfirmationPage.getOrderSubtitle().getText(), containsString(orderConfirmationSubtitle));
+        assertThat(getDriver().getCurrentUrl(), containsString(relativePath));
     }
 }

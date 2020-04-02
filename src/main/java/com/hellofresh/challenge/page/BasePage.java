@@ -30,10 +30,22 @@ public abstract class BasePage {
         return page;
     }
 
+    /**
+     * Group of essential elements of a page (recommend only one or two) that will be used to verify if the
+     * expected page is loaded.
+     *
+     * @return  List of WebElements (RECOMMENDED ONLY ONE OR TWO)
+     */
     protected List<WebElement> getElementsToLoad() {
         throw new UnsupportedOperationException("Should override");
     }
 
+    /**
+     * Fluent wait that works to check if a certain group of elements from a page are visible.
+     *
+     * @param elements  List of WebElements
+     * @param timeoutSeconds    Timeout before wait expires
+     */
     private void wait(List<WebElement> elements, Long timeoutSeconds) {
         Log.step(Level.DEBUG, "Wait for Page elements to be loaded");
 

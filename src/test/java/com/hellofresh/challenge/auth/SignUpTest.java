@@ -6,7 +6,6 @@ import com.hellofresh.challenge.page.HomePage;
 import com.hellofresh.challenge.page.LogInPage;
 import com.hellofresh.challenge.page.NewAccountPage;
 import com.hellofresh.challenge.page.YourAccountPage;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
 
 import java.util.Date;
@@ -30,6 +29,8 @@ public class SignUpTest extends BaseTest {
         String timestamp = String.valueOf(new Date().getTime());
         String email = "hf_challenge_" + timestamp + "@hf" + timestamp.substring(7) + ".com";
         String accountPath = "controller=my-account";
+        String accountTitle = "MY ACCOUNT";
+        String accountInfo = "Welcome to your account.";
         User user = new User(email);
 
         LogInPage logInPage = new LogInPage(getDriver());
@@ -37,38 +38,13 @@ public class SignUpTest extends BaseTest {
         logInPage.getCreateAccountButton().click();
 
         NewAccountPage newAccountPage = waitForLoadedPage(new NewAccountPage(getDriver()));
-        newAccountPage.getGender().click();
-        newAccountPage.getFirstName().sendKeys(user.getName());
-        newAccountPage.getLastName().sendKeys(user.getSurname());
-        newAccountPage.getPassword().sendKeys(user.getPassword());
-
-        Select select = new Select(newAccountPage.getDay());
-        select.selectByValue("1");
-        select = new Select(newAccountPage.getMonth());
-        select.selectByValue("1");
-        select = new Select(newAccountPage.getYear());
-        select.selectByValue("2000");
-
-        newAccountPage.getCompany().sendKeys("Company");
-        newAccountPage.getAddress1().sendKeys("Qwerty, 123");
-        newAccountPage.getAddress2().sendKeys("zxcvb");
-        newAccountPage.getCity().sendKeys("Qwerty");
-
-        select = new Select(newAccountPage.getState());
-        select.selectByVisibleText("Colorado");
-
-        newAccountPage.getPostcode().sendKeys("12345");
-        newAccountPage.getOther().sendKeys("Qwerty");
-        newAccountPage.getPhone().sendKeys("12345123123");
-        newAccountPage.getMobile().sendKeys("12345123123");
-        newAccountPage.getAlias().sendKeys("hf");
-        newAccountPage.getSubmitButton().click();
+        newAccountPage.doSingUp(user);
 
         YourAccountPage accountPage = new YourAccountPage(getDriver());
 
-        assertThat(accountPage.getTitle().getText(), equalTo("MY ACCOUNT"));
-        assertThat(accountPage.getAccountOwner().getText(), equalTo(user.getName() + " " + user.getSurname()));
-        assertThat(accountPage.getAccountInfo().getText(), containsString("Welcome to your account."));
+        assertThat(accountPage.getTitle().getText(), equalTo(accountTitle));
+        assertThat(accountPage.getAccountOwner().getText(), equalTo(user.getFullName()));
+        assertThat(accountPage.getAccountInfo().getText(), containsString(accountInfo));
         assertTrue(accountPage.getLogoutButton().isDisplayed());
         assertThat(getDriver().getCurrentUrl(), containsString(accountPath));
     }
