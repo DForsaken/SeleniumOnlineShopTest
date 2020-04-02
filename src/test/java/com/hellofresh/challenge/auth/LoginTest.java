@@ -7,6 +7,7 @@ import com.hellofresh.challenge.page.HomePage;
 import com.hellofresh.challenge.page.LogInPage;
 import org.testng.annotations.Test;
 
+import static com.hellofresh.challenge.page.BasePage.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
@@ -14,7 +15,8 @@ import static org.testng.Assert.assertTrue;
 
 public class LoginTest extends BaseTest {
     protected void navigateTo() {
-        HomePage homePage = new HomePage(getDriver());
+        getDriver().get("http://automationpractice.com/index.php");
+        HomePage homePage = waitForLoadedPage(new HomePage(getDriver()));
         homePage.getLoginButton().click();
     }
 
@@ -28,10 +30,10 @@ public class LoginTest extends BaseTest {
 
         User user = new User();
 
-        LogInPage logInPage = new LogInPage(getDriver());
+        LogInPage logInPage = waitForLoadedPage(new LogInPage(getDriver()));
         logInPage.doLogin(user);
 
-        YourAccountPage accountPage = new YourAccountPage(getDriver());
+        YourAccountPage accountPage = waitForLoadedPage(new YourAccountPage(getDriver()));
 
         assertThat(accountPage.getTitle().getText(), equalTo(title));
         assertThat(accountPage.getAccountOwner().getText(), equalTo(user.getFullName()));

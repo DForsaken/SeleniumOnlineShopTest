@@ -14,8 +14,10 @@
     <aspectj.version>1.8.10</aspectj.version>
     <browser/><!-- Provided manually (mandatory) -->
     <hubUrl/><!-- Provided manually (mandatory) -->
+    <threads/><!-- Provided manually (mandatory) -->
 
     <!-- Paths -->
+    <logsPath>${project.build.directory}/logs</logsPath>
     <allureResultsPath>${project.build.directory}/allure-results</allureResultsPath>
   </properties>
 
@@ -91,6 +93,10 @@
           <systemPropertyVariables>
             <allure.results.directory>${allureResultsPath}</allure.results.directory>
           </systemPropertyVariables>
+          <testFailureIgnore>true</testFailureIgnore>
+          <!-- Parallel run config. By classes is default, as tests has lesser dependencies for now -->
+          <parallel>classes</parallel>
+          <threadCount>${threads}</threadCount>
         </configuration>
         <dependencies>
           <dependency>

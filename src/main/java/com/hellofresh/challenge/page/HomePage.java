@@ -4,6 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class HomePage extends BasePage {
     @FindBy(className = "login")
     private WebElement loginButton;
@@ -13,6 +16,11 @@ public class HomePage extends BasePage {
 
     public HomePage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    protected List<WebElement> getElementsToLoad() {
+        return Arrays.asList(loginButton);
     }
 
     public WebElement getLoginButton() {

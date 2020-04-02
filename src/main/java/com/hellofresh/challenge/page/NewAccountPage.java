@@ -1,6 +1,8 @@
 package com.hellofresh.challenge.page;
 
 import com.hellofresh.challenge.data.User;
+import com.hellofresh.challenge.utilities.Log;
+import org.apache.log4j.Level;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -147,8 +149,10 @@ public class NewAccountPage extends BasePage {
 
     /****** Filling page helper methods *****/
 
-    public void doSingUp(User user) {
+    public void fillNewAccountPage(User user) {
+        Log.step(Level.DEBUG, "Filling new account page with user data");
         gender.click();
+
         firstName.sendKeys(user.getName());
         lastName.sendKeys(user.getSurname());
         password.sendKeys(user.getPassword());

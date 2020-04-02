@@ -1,9 +1,14 @@
 package com.hellofresh.challenge.page;
 
 import com.hellofresh.challenge.data.User;
+import com.hellofresh.challenge.utilities.Log;
+import org.apache.log4j.Level;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class LogInPage extends BasePage {
     @FindBy(id = "email_create")
@@ -23,6 +28,11 @@ public class LogInPage extends BasePage {
 
     public LogInPage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    protected List<WebElement> getElementsToLoad() {
+        return Arrays.asList(email, newEmail);
     }
 
     public WebElement getNewEmail() {
@@ -48,6 +58,7 @@ public class LogInPage extends BasePage {
     /****** Filling page helper methods *****/
 
     public void doLogin(User user) {
+        Log.step(Level.DEBUG, "Login with an existing user");
         email.sendKeys(user.getEmail());
         password.sendKeys(user.getPassword());
         logInButton.click();

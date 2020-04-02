@@ -13,7 +13,8 @@ import static org.testng.Assert.assertTrue;
 
 public class CheckoutTest extends BaseTest {
     protected void navigateTo() {
-        HomePage homePage = new HomePage(getDriver());
+        getDriver().get("http://automationpractice.com/index.php");
+        HomePage homePage = waitForLoadedPage(new HomePage(getDriver()));
         homePage.getLoginButton().click();
 
         User user = new User();
@@ -35,27 +36,27 @@ public class CheckoutTest extends BaseTest {
         CategoryPage categoryPage = waitForLoadedPage(new CategoryPage(getDriver()));
         categoryPage.getFadShortSleeveTSTitle().click();
 
-        ProductDetailsPage productDetailsPage = new ProductDetailsPage(getDriver());
+        ProductDetailsPage productDetailsPage = waitForLoadedPage(new ProductDetailsPage(getDriver()));
         productDetailsPage.getAddToCarButton().click();
 
         ShoppingCarProductsPage shoppingCarProductsPage = waitForLoadedPage(new ShoppingCarProductsPage(getDriver()));
         shoppingCarProductsPage.getCheckoutButton().click();
 
-        OrderPage orderPage = new OrderPage(getDriver());
+        OrderPage orderPage = waitForLoadedPage(new OrderPage(getDriver()));
         orderPage.getCheckoutButton().click();
 
-        CheckoutAddressPage checkoutAddressPage = new CheckoutAddressPage(getDriver());
+        CheckoutAddressPage checkoutAddressPage = waitForLoadedPage(new  CheckoutAddressPage(getDriver()));
         checkoutAddressPage.getContinueButton().click();
 
-        CheckoutShippingPage checkoutShippingPage = new CheckoutShippingPage(getDriver());
+        CheckoutShippingPage checkoutShippingPage = waitForLoadedPage(new  CheckoutShippingPage(getDriver()));
         checkoutShippingPage.getTermsOfServiceRadioButton().click();
         checkoutShippingPage.getContinueButton().click();
 
-        CheckoutPayment checkoutPayment = new CheckoutPayment(getDriver());
+        CheckoutPayment checkoutPayment = waitForLoadedPage(new  CheckoutPayment(getDriver()));
         checkoutPayment.getBankwireMethodButton().click();
         checkoutPayment.getConfirmationButton().click();
 
-        OrderConfirmationPage orderConfirmationPage = new OrderConfirmationPage(getDriver());
+        OrderConfirmationPage orderConfirmationPage = waitForLoadedPage(new  OrderConfirmationPage(getDriver()));
 
         assertThat(orderConfirmationPage.getTitle().getText(), equalTo(orderConfirmationTitle));
         assertTrue(orderConfirmationPage.getShippingStepTitle().isDisplayed());

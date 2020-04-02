@@ -4,6 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class OrderConfirmationPage extends BasePage {
     @FindBy(css = "h1")
     private WebElement title;
@@ -19,6 +22,11 @@ public class OrderConfirmationPage extends BasePage {
 
     public OrderConfirmationPage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    protected List<WebElement> getElementsToLoad() {
+        return Arrays.asList(title);
     }
 
     public WebElement getTitle() {

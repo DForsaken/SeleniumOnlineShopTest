@@ -2,5 +2,7 @@
 
 BROWSER=$1
 HUB=$2
+THREADS=$3
 
-mvn -Dbrowser=$BROWSER -DhubUrl=$HUB test clean
+mvn -e clean package -DskipTests=true -Dbrowser=$BROWSER -DhubUrl=$HUB -Dthreads=$THREADS \
+&& mvn -q -fn surefire:test

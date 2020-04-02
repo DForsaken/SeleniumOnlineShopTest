@@ -18,7 +18,8 @@ import static org.testng.Assert.assertTrue;
 
 public class SignUpTest extends BaseTest {
     protected void navigateTo() {
-        HomePage homePage = new HomePage(getDriver());
+        getDriver().get("http://automationpractice.com/index.php");
+        HomePage homePage = waitForLoadedPage(new HomePage(getDriver()));
         homePage.getLoginButton().click();
     }
 
@@ -33,14 +34,14 @@ public class SignUpTest extends BaseTest {
         String accountInfo = "Welcome to your account.";
         User user = new User(email);
 
-        LogInPage logInPage = new LogInPage(getDriver());
+        LogInPage logInPage = waitForLoadedPage(new LogInPage(getDriver()));
         logInPage.getNewEmail().sendKeys(user.getEmail());
         logInPage.getCreateAccountButton().click();
 
         NewAccountPage newAccountPage = waitForLoadedPage(new NewAccountPage(getDriver()));
-        newAccountPage.doSingUp(user);
+        newAccountPage.fillNewAccountPage(user);
 
-        YourAccountPage accountPage = new YourAccountPage(getDriver());
+        YourAccountPage accountPage = waitForLoadedPage(new YourAccountPage(getDriver()));
 
         assertThat(accountPage.getTitle().getText(), equalTo(accountTitle));
         assertThat(accountPage.getAccountOwner().getText(), equalTo(user.getFullName()));

@@ -4,6 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class CheckoutPayment extends BasePage {
     @FindBy(className = "bankwire")
     private WebElement bankwireMethodButton;
@@ -13,6 +16,11 @@ public class CheckoutPayment extends BasePage {
 
     public CheckoutPayment(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    protected List<WebElement> getElementsToLoad() {
+        return Arrays.asList(bankwireMethodButton);
     }
 
     public WebElement getBankwireMethodButton() {

@@ -41,8 +41,6 @@ public abstract class BaseTest {
 
         wait = new WebDriverWait(driver.get(), WAIT_TIMEOUT_DEFAULT, WAIT_SLEEP_TIME_DEFAULT);
         Log.step(Level.DEBUG, "Opening browser in webpage");
-
-        driver.get().get("http://automationpractice.com/index.php");
     }
 
     @AfterMethod

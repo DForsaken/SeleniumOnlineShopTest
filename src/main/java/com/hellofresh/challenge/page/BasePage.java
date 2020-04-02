@@ -26,7 +26,11 @@ public abstract class BasePage {
     }
 
     protected  <Page extends BasePage> Page waitLoad(Page page) {
-        wait(getElementsToLoad(), LOAD_TIMEOUT_SECONDS);
+        try {
+            wait(getElementsToLoad(), LOAD_TIMEOUT_SECONDS);
+        } catch (Exception e) {
+            Log.error("Page " + page.getClass().getSimpleName().toString() + " is not the current page. " + "\n" + e);
+        }
         return page;
     }
 
@@ -47,7 +51,7 @@ public abstract class BasePage {
      * @param timeoutSeconds    Timeout before wait expires
      */
     private void wait(List<WebElement> elements, Long timeoutSeconds) {
-        Log.step(Level.DEBUG, "Wait for Page elements to be loaded");
+        Log.step(Level.DEBUG, "Wait for " + this.getClass().getSimpleName() + " elements to be loaded");
 
         new WebDriverWait(driver, timeoutSeconds)
                 .ignoring(StaleElementReferenceException.class)
