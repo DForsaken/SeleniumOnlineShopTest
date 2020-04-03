@@ -19,7 +19,7 @@ public class CheckoutTest extends BaseTest {
 
         User user = new User();
 
-        LogInPage logInPage = new LogInPage(getDriver());
+        LogInPage logInPage = waitForLoadedPage(new LogInPage(getDriver()));
         logInPage.doLogin(user);
 
         homePage.getWomenCategoryButton().click();

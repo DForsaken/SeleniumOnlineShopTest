@@ -27,7 +27,6 @@ public class DriverFactory {
 
     private RemoteWebDriver getFirefoxDriver(String hub) {
 //        System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
-
         FirefoxProfile profile = new FirefoxProfile();
         profile.setAcceptUntrustedCertificates(true);
         profile.setAssumeUntrustedCertificateIssuer(false);

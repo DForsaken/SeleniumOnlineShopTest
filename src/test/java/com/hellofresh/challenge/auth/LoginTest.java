@@ -7,7 +7,7 @@ import com.hellofresh.challenge.page.HomePage;
 import com.hellofresh.challenge.page.LogInPage;
 import org.testng.annotations.Test;
 
-import static com.hellofresh.challenge.page.BasePage.*;
+import static com.hellofresh.challenge.page.BasePage.waitForLoadedPage;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
