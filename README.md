@@ -46,9 +46,11 @@ address then you should modify that in the /scripts/run-test.-parallel file
 
         ./scripts/show-reports.sh 
         
-        ![Alt text](samplereport.png?raw=true "Title")
         
-        Make sure to go the package section where you will be able to check on the reports with detail.
+     ![Alt text](samplereport.png?raw=true "Title")
+        
+   
+* Make sure to go the package section where you will be able to check on the reports with detail.
 
 * You will find the logs on the target folder by the name test-automation.log
 
